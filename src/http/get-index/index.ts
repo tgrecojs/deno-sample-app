@@ -1,16 +1,33 @@
 // TODO: modify the body object!
+
 let body = {
   message: "Hello, TG",
 };
 
+const identity = (id) => id;
+
+const getData = ({ data }) => data;
+const createURL = (endpoint = "reactjs") =>
+  `https://www.reddit.com/r/${endpoint}.json`;
+
+const response = await fetch(createURL(), {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+});
+
+const data = await response;
+
 export async function handler(req: object) {
+  console.log({ data });
   return {
     headers: {
       "content-type": "application/json; charset=utf8",
       "cache-control":
         "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
     },
-    body: JSON.stringify(body),
+    body: data,
   };
 }
 
